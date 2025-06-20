@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Feliz Cumpleaños!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e6f4ff, #b3e5fc);
+  color: #03334d;
+  text-align: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4.2rem;
+  color: #0081e6;
+  margin-top: 5rem;
+  opacity: 0;
+  transition: opacity 1s ease;
+  position: relative;
+  z-index: 10;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+h1.visible {
+  opacity: 1;
+}
+
+h2#nombre {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1ebeff, #48daff);
+  padding: 0.5rem 1.2rem;
+  border-radius: 12px;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 10;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+h2#nombre.visible {
+  opacity: 1;
+}
+
+.gift-box {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #06a2ff, #1ebeff);
+  border: 4px solid #0081e6;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease;
+  z-index: 10;
+}
+
+.gift-box:hover {
+  transform: scale(1.05);
+}
+
+.gift-lid {
+  width: 100%;
+  height: 40px;
+  background: #0081e6;
+  border-radius: 20px 20px 0 0;
+  position: absolute;
+  top: 0;
+}
+
+.gift-ribbon {
+  width: 20px;
+  height: 100%;
+  background: #ffffff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+.gift-icon {
+  font-size: 2.5rem;
+  z-index: 1;
+  color: #fff;
+}
+
+.surprise {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  margin-top: 8rem;
+}
+
+#mensaje {
+  font-size: 1.3rem;
+  color: #0081e6;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.surprise .foto {
+  width: 220px;
+  border-radius: 50%;
+  margin-top: 1rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.surprise .logo {
+  width: 220px;
+  height: auto;
+  position: relative;
+  top: -30px;
+}
+
+.globo {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+  background: radial-gradient(circle at 30% 30%, #1ebeff, #0081e6);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: flotar 4s ease-in-out infinite alternate, cambiarColor 5s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+.globo::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 50px;
+  background: #4fa7dc;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes flotar {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-60px); }
+}
+
+@keyframes cambiarColor {
+  0% { background: radial-gradient(circle at 30% 30%, #1ebeff, #0081e6); }
+  100% { background: radial-gradient(circle at 30% 30%, #48daff, #06a2ff); }
+}
+
+.confeti, .canon-confeti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: caer linear infinite;
+  z-index: 5;
+}
+
+@keyframes caer {
+  0% { transform: translateY(-10vh); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.2rem;
+    margin-top: 4rem;
+  }
+
+  h2#nombre {
+    font-size: 1.5rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .gift-box {
+    width: 150px;
+    height: 150px;
+  }
+
+  .gift-icon {
+    font-size: 2rem;
+  }
+
+  .surprise {
+    width: 80%;
+    padding: 1rem;
+    margin-top: 6rem;
+  }
+
+  .surprise img {
+    width: 160px;
+  }
+
+  #mensaje {
+    font-size: 1.1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <h1 id="titulo">¡Feliz Cumpleaños!</h1>
+  <h2 id="nombre">Ayde</h2>
+  <div class="gift-box" id="gift">
+    <div class="gift-lid"></div>
+    <div class="gift-ribbon"></div>
+    <div class="gift-icon">🎀</div>
+  </div>
+
+  <div class="surprise" id="surprise">
+    <p id="mensaje">🎉 ¡Feliz cumpleaños! 🎂
+    Que este día te regale mucha alegría, risas sinceras y momentos inolvidables. ✨
+    De parte de tus compañeros del equipo de Marketing de TreXperience 🎁</p>
+    <img src="https://trexperienceperu.com/sites/default/files/ayde_1.png" alt="Sorpresa" class="foto" />
+    <img src="https://trexperienceperu.com/sites/default/files/logo-new.png" alt="logo" class="logo">
+  </div>
+
+<script>
+  function crearGlobos() {
+    for (let i = 0; i < 7; i++) {
+      const globo = document.createElement("div");
+      globo.classList.add("globo");
+      globo.style.left = `${Math.random() * 100}vw`;
+      globo.style.top = `${Math.random() * 40 + 10}vh`;
+      globo.style.animationDuration = `${3 + Math.random() * 2}s`;
+      document.body.appendChild(globo);
+    }
+  }
+
+  function crearConfeti(extraClass = "confeti") {
+    const colores = ['#0081e6', '#06a2ff', '#1ebeff', '#48daff'];
+    for (let i = 0; i < 80; i++) {
+      const confeti = document.createElement("div");
+      confeti.classList.add(extraClass);
+      confeti.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+      confeti.style.left = `${Math.random() * 100}vw`;
+      confeti.style.top = `${Math.random() * -20}vh`;
+      confeti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      document.body.appendChild(confeti);
+    }
+  }
+
+  function lanzarConfetiCanvas() {
+    const duration = 3 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = {
+      startVelocity: 45,
+      spread: 100,
+      ticks: 100,
+      gravity: 0.8,
+      zIndex: 200,
+      scalar: 1.2,
+      origin: { y: 1 },
+      colors: ['#0081e6', '#06a2ff', '#1ebeff', '#48daff']
+    };
+
+    function randomX(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+      if (timeLeft <= 0) return clearInterval(interval);
+
+      confetti({ ...defaults, particleCount: 20, origin: { x: randomX(0.3, 0.7), y: 1 } });
+    }, 200);
+  }
+
+  document.getElementById("gift").addEventListener("click", function () {
+    const surprise = document.getElementById("surprise");
+    this.style.display = "none";
+    surprise.style.display = "flex";
+
+    document.querySelector("h1").classList.add("visible");
+    document.querySelector("h2#nombre").classList.add("visible");
+
+    crearConfeti("canon-confeti");
+    lanzarConfetiCanvas();
+  });
+
+  crearGlobos();
+  crearConfeti();
+</script>
+
+</body>
+</html>
